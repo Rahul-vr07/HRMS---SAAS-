@@ -1,0 +1,28 @@
+{
+  "name": "nexus-hr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nexus HR — Enterprise Human Resource Management Platform",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:web": "npm run dev --workspace=@nexus-hr/web",
+    "dev:api": "npm run start:dev --workspace=@nexus-hr/api",
+    "build": "npm run build --workspaces --if-present",
+    "db:generate": "npm run db:generate --workspace=@nexus-hr/api",
+    "db:migrate": "npm run db:migrate --workspace=@nexus-hr/api",
+    "db:seed": "npm run db:seed --workspace=@nexus-hr/api",
+    "db:studio": "npm run db:studio --workspace=@nexus-hr/api",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
