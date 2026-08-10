@@ -95,8 +95,8 @@ export class DashboardService {
       select: { id: true, name: true },
     });
 
-    const deptMap = Object.fromEntries(departments.map((d) => [d.id, d.name]));
-    const departmentStats = departmentDistribution.map((d) => ({
+    const deptMap = Object.fromEntries(departments.map((d: any) => [d.id, d.name]));
+    const departmentStats = departmentDistribution.map((d: any) => ({
       name: d.departmentId ? deptMap[d.departmentId] || 'Unassigned' : 'Unassigned',
       count: d._count,
     }));
@@ -144,7 +144,7 @@ export class DashboardService {
     const currentDay = today.getDate();
 
     return employees
-      .filter((e) => {
+      .filter((e:any) => {
         if (!e.dateOfBirth) return false;
         const dob = new Date(e.dateOfBirth);
         const month = dob.getMonth();
@@ -154,7 +154,7 @@ export class DashboardService {
         return false;
       })
       .slice(0, 8)
-      .map((e) => ({
+      .map((e:any) => ({
         ...e,
         birthday: e.dateOfBirth
           ? `${new Date(e.dateOfBirth).getMonth() + 1}/${new Date(e.dateOfBirth).getDate()}`

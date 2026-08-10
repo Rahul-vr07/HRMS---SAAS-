@@ -75,7 +75,7 @@ export class SearchService {
       ]);
 
     const results = [
-      ...employees.map((e) => ({
+      ...employees.map((e:any) => ({
         type: 'employee',
         id: e.id,
         title: `${e.firstName} ${e.lastName}`,
@@ -83,49 +83,49 @@ export class SearchService {
         href: `/employees/${e.id}`,
         avatar: e.avatar,
       })),
-      ...departments.map((d) => ({
+      ...departments.map((d:any) => ({
         type: 'department',
         id: d.id,
         title: d.name,
         subtitle: 'Department',
         href: `/organization/departments`,
       })),
-      ...leaveRequests.map((l) => ({
+      ...leaveRequests.map((l:any) => ({
         type: 'leave',
         id: l.id,
         title: `${l.employee.firstName} ${l.employee.lastName} — ${l.leaveType.name}`,
         subtitle: l.status,
         href: `/leave`,
       })),
-      ...tickets.map((t) => ({
+      ...tickets.map((t:any) => ({
         type: 'ticket',
         id: t.id,
         title: t.subject,
         subtitle: `${t.priority} · ${t.status}`,
         href: `/helpdesk`,
       })),
-      ...projects.map((p) => ({
+      ...projects.map((p:any) => ({
         type: 'project',
         id: p.id,
         title: p.name,
         subtitle: p.status,
         href: `/projects`,
       })),
-      ...documents.map((d) => ({
+      ...documents.map((d:any) => ({
         type: 'document',
         id: d.id,
         title: d.name,
         subtitle: d.type,
         href: `/documents`,
       })),
-      ...assets.map((a) => ({
+      ...assets.map((a:any) => ({
         type: 'asset',
         id: a.id,
         title: a.name,
         subtitle: a.type,
         href: `/assets`,
       })),
-      ...jobs.map((j) => ({
+      ...jobs.map((j:any) => ({
         type: 'job',
         id: j.id,
         title: j.title,

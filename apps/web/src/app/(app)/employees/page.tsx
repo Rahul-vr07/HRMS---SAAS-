@@ -14,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/lib/api';
 import { getInitials, formatDate } from '@/lib/utils';
 
+
 interface Employee {
   id: string;
   employeeCode: string;
@@ -57,9 +58,12 @@ export default function EmployeesPage() {
             {data?.meta.total ?? '...'} people in your organization
           </p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4" /> Add Employee
-        </Button>
+       <Button asChild>
+  <Link href="/employees/new">
+    <Plus className="h-4 w-4" />
+    Add Employee
+  </Link>
+</Button>
       </div>
 
       <Card>

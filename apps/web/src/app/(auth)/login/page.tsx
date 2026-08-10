@@ -164,7 +164,7 @@ export default function LoginPage() {
 
           <div className="rounded-xl border bg-secondary/50 p-4 text-center">
             <p className="text-xs text-muted-foreground mb-1">Demo credentials</p>
-            <p className="text-sm font-mono">admin@acme.tech / Demo@1234</p>
+            <p className="text-sm font-mono">rahul@example.com / Demo@1234</p>
           </div>
         </motion.div>
       </div>

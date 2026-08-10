@@ -78,11 +78,11 @@ export class AiService {
       return { type: 'text', message: 'Great news! No employees are marked absent today.' };
     }
 
-    const names = records.map((r) => `${r.employee.firstName} ${r.employee.lastName}`).join(', ');
+    const names = records.map((r: any) => `${r.employee.firstName} ${r.employee.lastName}`).join(', ');
     return {
       type: 'list',
       message: `${records.length} employee${records.length > 1 ? 's are' : ' is'} absent today: ${names}.`,
-      data: records.map((r) => ({
+      data: records.map((r: any) => ({
         name: `${r.employee.firstName} ${r.employee.lastName}`,
         department: r.employee.department?.name,
       })),
@@ -117,7 +117,7 @@ export class AiService {
     return {
       type: 'list',
       message: `There ${requests.length === 1 ? 'is' : 'are'} ${requests.length} pending leave request${requests.length !== 1 ? 's' : ''}.`,
-      data: requests.map((r) => ({
+      data: requests.map((r:any) => ({
         name: `${r.employee.firstName} ${r.employee.lastName}`,
         type: r.leaveType.name,
         days: Number(r.days),
@@ -147,11 +147,11 @@ export class AiService {
       select: { firstName: true, lastName: true, dateOfBirth: true },
     });
     const thisMonth = new Date().getMonth();
-    const birthdays = employees.filter((e) => e.dateOfBirth && new Date(e.dateOfBirth).getMonth() === thisMonth);
+    const birthdays = employees.filter((e: any) =>e.dateOfBirth && new Date(e.dateOfBirth).getMonth() === thisMonth);
     return {
       type: 'list',
       message: `${birthdays.length} birthday${birthdays.length !== 1 ? 's' : ''} this month.`,
-      data: birthdays.map((e) => ({
+      data: birthdays.map((e:any) => ({
         name: `${e.firstName} ${e.lastName}`,
         date: e.dateOfBirth,
       })),
@@ -178,7 +178,7 @@ export class AiService {
       message: skills.length
         ? `Found ${skills.length} employee${skills.length !== 1 ? 's' : ''} with ${skill} skills.`
         : `No employees found with "${skill}" skills.`,
-      data: skills.map((s) => ({
+      data: skills.map((s:any) => ({
         name: `${s.employee.firstName} ${s.employee.lastName}`,
         level: s.level,
         department: s.employee.department?.name,
@@ -252,7 +252,7 @@ export class AiService {
       message: topPerformers.length
         ? `Based on performance reviews, ${topPerformers.length} employee${topPerformers.length !== 1 ? 's are' : ' is'} recommended for promotion consideration.`
         : 'No high-performing employees identified yet. Complete more performance reviews.',
-      data: topPerformers.map((p) => ({
+      data: topPerformers.map((p:any) => ({
         name: `${p.employee.firstName} ${p.employee.lastName}`,
         rating: p.rating,
         title: p.employee.jobTitle?.title,
@@ -289,7 +289,7 @@ export class AiService {
     return {
       type: 'list',
       message: `${joinees.length} new joinee${joinees.length !== 1 ? 's' : ''} in the last 30 days.`,
-      data: joinees.map((e) => ({
+      data: joinees.map((e:any) => ({
         name: `${e.firstName} ${e.lastName}`,
         title: e.jobTitle?.title,
         department: e.department?.name,

@@ -102,7 +102,7 @@ export class EmployeesService {
     await this.findOne(id, companyId);
     return this.prisma.employee.update({
       where: { id },
-      data: dto,
+      data: dto as any,
       include: { department: true, jobTitle: true },
     });
   }

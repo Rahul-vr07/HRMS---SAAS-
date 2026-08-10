@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/lib/api';
 import { getInitials, formatDate, formatCurrency } from '@/lib/utils';
 
+
 export default function EmployeeProfilePage() {
   const params = useParams();
   const id = params.id as string;

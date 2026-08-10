@@ -1,5 +1,6 @@
 import { IsString, IsEmail, IsOptional, IsDateString, IsEnum } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { EmploymentType } from '@prisma/client';
 
 export class CreateEmployeeDto {
   @ApiPropertyOptional()
@@ -50,8 +51,8 @@ export class CreateEmployeeDto {
 
   @ApiPropertyOptional()
   @IsOptional()
-  @IsEnum(['FULL_TIME', 'PART_TIME', 'CONTRACT', 'INTERN', 'FREELANCE'])
-  employmentType?: string;
+  @IsEnum(EmploymentType)
+  employmentType?: EmploymentType;
 
   @ApiPropertyOptional()
   @IsOptional()

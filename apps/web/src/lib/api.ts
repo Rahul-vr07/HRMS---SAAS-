@@ -1,5 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-
+console.log("API_URL =", API_URL);
 class ApiClient {
   private getToken(): string | null {
     if (typeof window === 'undefined') return null;
@@ -7,36 +7,60 @@ class ApiClient {
   }
 
   private async request<T>(path: string, options: RequestInit = {}): Promise<T> {
-    const token = this.getToken();
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string>),
-    };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+    
+  console.log("API_URL =", API_URL);
+  console.log("Request URL =", `${API_URL}/api/v1${path}`);
+  console.log("Request Body =", options.body);
 
+  const token = this.getToken();
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...(options.headers as Record<string, string>),
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
     const res = await fetch(`${API_URL}/api/v1${path}`, {
       ...options,
       headers,
     });
 
+    console.log("Status =", res.status);
+    console.log("OK =", res.ok);
+    console.log("Response URL =", res.url);
+
     if (res.status === 401) {
       const refreshed = await this.tryRefresh();
+
       if (refreshed) return this.request(path, options);
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
-      }
-      throw new Error('Unauthorized');
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      window.location.href = "/login";
+
+      throw new Error("Unauthorized");
     }
 
     if (!res.ok) {
-      const error = await res.json().catch(() => ({ message: 'Request failed' }));
-      throw new Error(error.message || `HTTP ${res.status}`);
+      const error = await res.json().catch(() => ({
+        message: "Request failed",
+      }));
+
+      console.log("Response Error =", error);
+
+      throw new Error(error.message);
     }
 
     return res.json();
+  } catch (err) {
+    console.error("FETCH ERROR =", err);
+    throw err;
   }
+}
 
   private async tryRefresh(): Promise<boolean> {
     const refreshToken = localStorage.getItem('refreshToken');
